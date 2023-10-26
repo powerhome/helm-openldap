@@ -57,8 +57,8 @@ spec:
               {{- if .Values.customTLS.caPEMContent }}
               cp -vLr /tmp-certs-ca/* /certs
               {{- end }}
-          {{- if .Values.initResources }}
-          resources: {{- toYaml .Values.initResources | nindent 12 }}
+          {{- if .Values.customTLS.resources }}
+          resources: {{- toYaml .Values.customTLS.resources | nindent 12 }}
           {{- end }}
           volumeMounts:
             - name: certs
