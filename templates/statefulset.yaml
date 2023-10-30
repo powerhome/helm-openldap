@@ -84,7 +84,7 @@ spec:
             - name: foo
               mountPath: bar
       {{- end }}
-      {{- if .Values.global.existingSecret }}
+      {{- if .Values.existingSecret.enabled }}
         - name: update-replication
           image: {{ include "openldap.image" . }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
@@ -97,6 +97,7 @@ spec:
               ls -al /custom_config
               sed -i -e "s/%%CONFIG_PASSWORD%%/${LDAP_CONFIG_ADMIN_PASSWORD}/g" /custom_config/*
               sed -i -e "s/%%ADMIN_PASSWORD%%/${LDAP_ADMIN_PASSWORD}/g" /custom_config/*
+          resources: {{- toYaml .Values.existingSecret.resources | nindent 12 }}
           volumeMounts:
             - name: cm-replication-acls
               mountPath: "/cm-schemas-acls"
@@ -252,7 +253,7 @@ spec:
             claimName: {{ .Values.persistence.existingClaim }}
 {{- end }}
 {{- end }}
-{{- if .Values.global.existingSecret }}
+{{- if .Values.existingSecret.enabled }}
         - name: cm-replication-acls
           configMap:
             name: {{ template "openldap.fullname" . }}-replication-acls

@@ -48,7 +48,7 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 Generate chart secret name
 */}}
 {{- define "ltb-passwd.secretName" -}}
-{{ default (include "ltb-passwd.fullname" .) .Values.global.existingSecret  }}
+{{ default (include "ltb-passwd.fullname" .) .Values.existingSecret.name  }}
 {{- end -}}
 
 {{/*
