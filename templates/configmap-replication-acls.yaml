@@ -19,8 +19,8 @@ data:
   syncprov.ldif: |
     # Load syncprov module
     dn: cn=module{0},cn=config
-    objectClass: olcModuleList
-    cn: module{0}
+    changetype: modify
+    add: olcModuleLoad
     olcModuleLoad: syncprov
   serverid.ldif: |
     # Set server ID
